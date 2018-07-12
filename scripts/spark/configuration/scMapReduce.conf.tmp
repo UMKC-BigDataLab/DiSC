@@ -1,0 +1,33 @@
+config  {
+    file_name {
+	input {
+        	variables             =VARS
+        	families              =FAMS
+        	table                 =/input/TABLENAME
+	}
+	output{
+        	counts                =/output/TABLENAME.counts.txt
+        	bulk_counts           =/output/TABLENAME.bulk_counts.txt
+        	variables             =variables.txt
+        	families              =families.txt
+	}
+    }
+    parameters {
+        max_family_size       = 5
+        num_vars              = NUM_VS
+        num_rows              = 200000000
+        spark_master          = "SPARK_MASTR"
+        hadoop_master         = "hdfs://ctl:9000"
+        use_hdfs              = true
+        hdfs_dir              = "/"
+        lcl_dir               = "/dev/data"
+        bulk_split            = 1000
+        collect               = true
+    }
+    run {
+        table_generator       = false
+        family_generator      = false
+        family_counter        = false
+        bulk_family_counter   = true
+    }
+}

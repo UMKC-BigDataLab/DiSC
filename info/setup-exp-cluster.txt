@@ -1,0 +1,25 @@
+1. Create a Mitaka cluster in Utah using type m400.
+2. Clone https://github.com/anask/ClusterConfig and cd ClusterConfig
+3. Get the public ips of the machines in the cluster. Save them to cluster-machines.txt.
+   with the master machine on the first line.
+4. Run the password setup script: ./set-cluster-passwd.sh cluster-machines.txt anask apasswd 15 /Users/anask/.ssh/id_rsa
+5. Run the instance setup script: ./run-instance-setup.sh -a cluster-machines.txt -k /Users/anask/.ssh/id_rsa
+6. Copy input files to master node:
+     scp tables.tgz  anask@ms0438.utah.cloudlab.us:/dev/data/
+     scp families.K* anask@ms0438.utah.cloudlab.us:/dev/data/
+     scp family.10k.txt anask@ms0438.utah.cloudlab.us:/dev/data/
+     scp variables.txt anask@ms0438.utah.cloudlab.us:/dev/data/
+7. Clone VDISC on master: clone https://github.com/anask/VDiSC.git
+8. Compile DiSC code after adjusting numTimesEstimated and dropping:
+vi src/main/java/org/apache/gossip/manager/GossipCore.java
+vi src/main/java/org/apache/gossip/manager/ActiveGossipThread.java
+mvn clean compile assembly:single
+9. Adjust Configuration and copy configuration.
+./getIps.sh cluster-machines.txt /Users/anask/.ssh/id_rsa > ips.txtls
+./ips.global.py ips.txt > config.part.txt
+scp config.part.txt anask@ms0438.utah.cloudlab.us:~/
+
+Add IDS as global ant global node's members.
+cp -r conf* target/
+
+10. Unpack scripts

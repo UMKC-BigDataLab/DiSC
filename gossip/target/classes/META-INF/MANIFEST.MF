@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Implementation-Title: gossip
+Implementation-Version: 0.1.0-incubating
+Built-By: anask
+Specification-Vendor: The Apache Software Foundation
+Specification-Title: gossip
+Implementation-Vendor-Id: org.apache.gossip
+Build-Jdk: 1.8.0_25
+Specification-Version: 0.1
+Implementation-URL: http://gossip.incubator.apache.org/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: The Apache Software Foundation
+
