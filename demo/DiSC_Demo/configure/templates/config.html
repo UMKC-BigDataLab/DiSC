@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>DiSC</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="../static/images/favicon.ico"/>
+  <link href="../static/styles/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../static/styles/mdb.css">
+  <link rel="stylesheet" href="../static/styles/style.css">
+  <link rel="stylesheet" href="../static/styles/home.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="../static/js/blockUI.js"></script>
+  <script src="../static/js/ConfigureScripts.js"></script>
+</head>
+<script>
+$(document).ready(function() {
+  var $select1 = $( '#select1' ),
+  $select2 = $( '#select2' ),
+  $options = $select2.find( 'option' );
+
+  $select1.on( 'change', function() {
+    $select2.html( $options.filter( '[id="' + this.value + '"]' ) );
+  }).trigger( 'change' );
+})
+</script>
+
+<body>
+<body class="grey lighten-3">
+  <!--Main Navigation-->
+  <header>
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+      <div class="container-fluid">
+
+        <!-- Brand -->
+        <a class="navbar-brand waves-effect" href="https://mdbootstrap.com/material-design-for-bootstrap/"
+        target="_blank">
+        <strong class="blue-text">DiSC</strong>
+      </a>
+
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Left -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link waves-effect" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="https://mdbootstrap.com/material-design-for-bootstrap/"
+            target="_blank">About DiSC</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="https://mdbootstrap.com/getting-started/" target="_blank">Spark Execution</a>
+          </li>
+
+        </ul>
+
+        <!-- Right -->
+        <ul class="navbar-nav nav-flex-icons">
+          <li class="nav-item">
+            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded waves-effect"
+            target="_blank">
+            <i class="fa fa-github mr-2"></i>GitHub
+          </a>
+        </li>
+      </ul>
+
+    </div>
+
+  </div>
+</nav>
+<!-- Navbar -->
+
+<!-- Sidebar -->
+<div class="sidebar-fixed position-fixed">
+
+  <a class="img-fluid" href="http://localhost:8000/disc/"
+  target="_blank">
+  <strong class="blue-text img-fluid">DiSC</strong>
+</a>
+
+<!-- Note: This needs to be aligned in the center -->
+<div class="list-group list-group-flush">
+  <form method="post" class="form">
+    {% csrf_token %}
+    {% for field in form  %}
+    <div class="form-group">
+      <label>{{ field.label_tag }}</label>
+      {{ field }}
+    </div>
+    {% endfor %}
+    <div class="form-group">
+      Dataset:<br><br>
+      <select class="form-control" name="select1" id="select1">
+        <option value="Higgs">Higgs</option>
+        <option value="Twitter">Twitter</option>
+        <option value="Synthetic">Synthetic</option>
+      </select><br>
+
+      Family To Visualize:<br><br>
+
+      <select class="form-control" name="select2" id="select2">
+        <option id = "Higgs" value="jet_2_pt|missing_energy_magnitude">jet_2_pt|missing_energy_magnitude</option>
+        <option id = "Higgs" value="jet_1_eta|lepton_phi,m_lv">jet_1_eta|lepton_phi,m_lv</option>
+        <option id = "Higgs" value="m_jj|jet_2_b-tag">m_jj|jet_2_b-tag</option>
+        <option id = "Higgs" value="lepton_pT|lepton_eta">m_jj|jet_1_eta</option>
+        <option id = "Higgs" value="m_jj|jet_1_eta">lepton_pT|lepton_eta</option>
+        <option id = "Higgs" value="lepton_pT|lepton_eta,missing_energy_magnitude">lepton_pT|lepton_eta,missing_energy_magnitude</option>
+        <option id = "Higgs" value="jet_2_b-tag|lepton_phi,m_wwbb">jet_2_b-tag|lepton_phi,m_wwbb</option>
+        <option id = "Higgs" value="jet_2_b-tag|jet_3_phi,jet_4_phi">jet_2_b-tag|jet_3_phi,jet_4_phi</option>
+        <option id = "Higgs" value="jet_2_eta|jet_1_pt,missing_energy_phi">jet_2_eta|jet_1_pt,missing_energy_phi</option>
+        <option id = "Higgs" value="lepton_eta|jet_2_b-tag,jet_4_b-tag">lepton_eta|jet_2_b-tag,jet_4_b-tag</option>
+
+        <option id = "Twitter" value="jet_2_pt,missing_energy_magnitude">jet_2_pt,missing_energy_magnitude</option>
+        <option id = "Twitter" value="jet_1_eta,lepton_phi,m_lv">jet_1_eta,lepton_phi,m_lv</option>
+        <option id = "Twitter" value="m_jj,jet_2_b-tag">m_jj,jet_2_b-tag</option>
+        <option id = "Twitter" value="lepton_pT,lepton_eta">m_jj,jet_1_eta</option>
+        <option id = "Twitter" value="m_jj,jet_1_eta">lepton_pT,lepton_eta</option>
+        <option id = "Twitter" value="lepton_pT,lepton_eta,missing_energy_magnitude">lepton_pT,lepton_eta,missing_energy_magnitude</option>
+        <option id = "Twitter" value="jet_2_b-tag,lepton_phi,m_wwbb">jet_2_b-tag,lepton_phi,m_wwbb</option>
+        <option id = "Twitter" value="jet_2_b-tag,jet_3_phi,jet_4_phi">jet_2_b-tag,jet_3_phi,jet_4_phi</option>
+        <option id = "Twitter" value="jet_2_eta	jet_1_pt,missing_energy_phi">jet_2_eta	jet_1_pt,missing_energy_phi</option>
+        <option id = "Twitter" value="lepton_eta,jet_2_b-tag,jet_4_b-tag">lepton_eta,jet_2_b-tag,jet_4_b-tag</option>
+
+      </select>
+    </div>
+  </div>
+  <button type="submit" id="submit" class="btn btn-default">Submit</button>
+</form>
+</div>
+</div>
+<!-- Sidebar -->
+
+</header>
+<!--Main Navigation-->
+<main class="pt-5 mx-lg-5"><br><br><br><br><br><br><br><br>
+  <div class="container-fluid mt-5">
+
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+
+      <!--Grid column-->
+      <div class="col-md-12 mb-4">
+      </div>
+    </div>
+
+
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+
+      <!--Grid column-->
+      <div class="col-md-12 mb-4">
+        <!--Card-->
+        <div class="card">
+          <div class="card-header text-center">
+            Distributed Score Computation
+          </div>
+          <!--Card content-->
+          <div class="card-body">
+
+            <p>In this paper, we focus on the problem of learning a Bayesian network over distributed data stored in acommodity cluster. Specifically, we address the challenge of computing the scoring function over distributeddata in an efficient and scalable manner, which is a fundamental task during learning. While exact scorecomputation can be done using the MapReduce-style computation, our goal is to compute approximate scoresmuch faster with probabilistic error bounds and in a scalable manner. We propose a novel approach which isdesigned to achieve: (a) decentralized score computation using the principle of gossiping; (b) lower resourceconsumption via a probabilistic approach for maintaining scores using the properties of a Markov chain; and(c) effective distribution of tasks during score computation (on large datasets) by synergistically combiningwell-known hashing techniques. We conduct theoretical analysis of our approach in terms of convergencespeed, and memory and network bandwidth consumption. We also discuss how our approach is capable ofefficiently recomputing scores when new data are available. We conducted a comprehensive evaluation of ourapproach and compared with the MapReduce-style computation using datasets of different characteristicson a 16-node cluster. When the MapReduce-style computation provided exact sufficient statistics of families,it was nearly 10 times slower thanDiSC. Although it ran faster on randomly sampled datasets than on theentire datasets, it performed worse thanDiSCin terms of accuracy.DiSCachieved high accuracy (below 6%average relative error) on all the tested datasets. Thus,DiSCprovides a feasible tradeoff between computationtime and accuracy for fast approximate score computation on large-scale distributed data</p>
+          </div>
+          <!--/.Card-->
+        </div>
+        <!--Grid column-->
+
+
+
+      </div>
+      <!--Grid row-->
+    </div>
+  </main>
+
+</body>
+
+</html>

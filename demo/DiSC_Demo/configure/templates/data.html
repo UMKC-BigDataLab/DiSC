@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>DiSC</title>
+  <meta charset="utf-8">
+  <meta http-equiv='cache-control' content='no-cache'>
+<meta http-equiv='expires' content='0'>
+<meta http-equiv='pragma' content='no-cache'>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="../static/images/favicon.ico"/>
+  <link rel="stylesheet" href="../static/styles/home.css">
+  <link href="../static/styles/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../static/styles/mdb.css">
+  <link rel="stylesheet" href="../static/styles/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.6/svg.min.js"></script>
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  <script src="../static/js/blockUI.js"></script>
+  <script src="../static/js/data.js"></script>
+  <script src="../static/js/displayNodes.js"></script>
+  <script src="../static/js/scoreDisp.js"></script>
+</head>
+<style>
+/* To change the color scheme of active tabs */
+.ui-tabs .ui-tabs-active {
+  background-color: #38ACEC;
+}
+
+.tempFont {
+  font-size:22px
+}
+
+.tempFont2 {
+  font-size:22px
+}
+
+.tempFont3 {
+  font-size:20px
+}
+</style>
+<body class="grey lighten-3">
+  <!--Main Navigation-->
+  <header>
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+      <div class="container-fluid">
+
+        <!-- Brand -->
+        <a class="navbar-brand waves-effect" href="https://mdbootstrap.com/material-design-for-bootstrap/"
+        target="_blank">
+        <strong class="blue-text">DiS</strong>
+      </a>
+
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Left -->
+        <ul class="navbar-nav mr-auto">
+          <!-- <li class="nav-item active">
+            <a class="nav-link waves-effect" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="https://mdbootstrap.com/material-design-for-bootstrap/"
+            target="_blank">Live!</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="https://mdbootstrap.com/material-design-for-bootstrap/"
+            target="_blank">Update</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="https://mdbootstrap.com/material-design-for-bootstrap/"
+            target="_blank">Summary</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="https://mdbootstrap.com/getting-started/" target="_blank">About</a>
+          </li>
+
+        </ul>
+
+        <!-- Right -->
+        <ul class="navbar-nav nav-flex-icons">
+          <li class="nav-item">
+            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded waves-effect"
+            target="_blank">
+            <i class="fa fa-github mr-2"></i>GitHub
+          </a>
+        </li>
+      </ul>
+
+    </div>
+
+  </div>
+</nav>
+<!-- Navbar -->
+
+<!-- Sidebar -->
+<div class="sidebar-fixed position-fixed">
+
+  <a class="img-fluid" href="http://localhost:8000/disc/"
+  target="_blank">
+  <strong class="blue-text img-fluid">DiSC</strong>
+</a>
+
+<div class="list-group list-group-flush">
+  <br>
+  <form class="form">
+    <div class="form-group">
+      <label class = "font-weight-bold tempFont">N</label><label>&nbsp;(No. of Nodes):</label><br>
+      <input type="text" class="form-control tempFont2" value={{N}} readonly>
+    </div>
+    <div class="form-group">
+      <label class = "font-weight-bold tempFont">L</label><label>&nbsp;(LSH Parameter):</label>
+      <input type="text" class="form-control tempFont2" value={{L}} readonly>
+    </div>
+    <div class="form-group">
+      <label class = "font-weight-bold tempFont">K</label><label>&nbsp;(LSH Parameter):</label>
+      <input type="text" class="form-control tempFont2" value={{K}} readonly>
+    </div>
+    <div class="form-group">
+      <label class = "font-weight-bold tempFont">r</label><label>&nbsp;(Accuracy Tuning Parameter):</label>
+      <input type="text" class="form-control tempFont2" value={{R}} readonly>
+    </div>
+    <div class="form-group">
+      <label class = "font-weight-bold tempFont">r</label><label>Delay Constant:</label>
+      <input type="text" class="form-control tempFont2" value=10 readonly>
+    </div>
+    <div class="form-group">
+      <label class = "font-weight-bold tempFont">Dataset:</label>
+      <input type="text" class="form-control tempFont2" value={{Dataset}} readonly>
+    </div>
+    <div class="form-group">
+      <label class = "font-weight-bold tempFont">Family To Visualize:</label>
+      <input type="text" class="form-control tempFont2" value={{Family}} readonly>
+    </div>
+    <div class="form-group">
+      <label class = "font-weight-bold tempFont">Scoring Function:</label>
+      <input type="text" class="form-control tempFont2" value="BDeu" readonly>
+    </div>
+    <br><br>
+    <div id="scorePlaceholder"><p class="tempFont2">*Note: Family score will be displayed here once DiSC finishes gossiping.</</div>
+    <div id="score"></div>
+  </form>
+</div>
+</div>
+<!-- Sidebar -->
+
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+<main class="pt-5 mx-lg-5">
+  <div class="container-fluid mt-5">
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+        <!--Card-->
+        <div class="card">
+          <div class="card-header text-center tempFont3">
+            Convergence speed for the family: "{{Family}}"
+          </div>
+          <!--Card content-->
+          <div class="card-body">
+            <div class="charts">
+              <input type="hidden" id="NodeResp" value={{NodeResp}}>
+              <div class="dataAccContainer">
+                <div id="tabs">
+                  {% load my_filters %}
+                  <ul>
+                    {% for i in 16|times %}
+                    <li><a href="#tabs-{{forloop.counter}}" style="font-size: 13px;">Node {{forloop.counter}}</a></li>
+                    {% endfor %}
+                  </ul>
+                  {% for i in 16|times %}
+                  <div id="tabs-{{forloop.counter}}">
+                    <div id="chartContainer{{forloop.counter}}" style="height: 392px; max-width: 1020px; margin: 0px auto;"></div>
+                  </div>
+                  {% endfor %}
+                </div>
+                <p>*Note: Graphs would appear, once the data starts streaming.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/.Card-->
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+        <!--Card-->
+        <div class="card">
+          <!-- Card header -->
+          <div class="card-header text-center tempFont2">
+            Messages exchanged during gossip
+          </div>
+          <!--Card content-->
+          <div class="card-body">
+            <div id="container">
+              <input type="hidden" id="NodesCount" value=16>
+              <!-- To Do:
+              1) Allign the text to center.
+              2) If Possible change the squares to circles -->
+              <svg height="600" width="600" id = "svg" class="svgStyle">
+                defs>
+                <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                  <path d="M0,0 L0,6 L9,3 z" fill="#f00" />
+                </marker>
+              </defs>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <!--/.Card-->
+    </div>
+    <!--Grid column-->
+  </div>
+  <!--Grid row-->
+
+  <!--Grid row-->
+  <div class="row wow fadeIn">
+    <!--Grid column-->
+    <div id = "div3" class="col-md-10 mb-4">
+      <!--Card-->
+      <div class="card col-md-15">
+        <!--Card content-->
+        <div id="chartContainer" style="height: 400px; width: 100%;"></div>
+      </div>
+      <!--/.Card-->
+
+    </div>
+    <!--Grid column-->
+
+  </div>
+  <!--Grid row-->
+</div>
+</main>
+</body>
+
+</html>

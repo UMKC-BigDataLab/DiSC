@@ -1,0 +1,6 @@
+adium-theme-ubuntu==0.3.4
+scour==0.32
+six==1.10.0
+smbus==1.1
+unity-lens-photos==1.0
+djutils==0.3.2

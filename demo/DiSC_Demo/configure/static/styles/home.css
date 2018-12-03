@@ -1,0 +1,43 @@
+#container {
+  position: relative;
+}
+.field {
+  width: 6%;
+  font-size: 150%;
+  position: absolute;
+  background:  #C7EFFB ;
+  border-radius: 54%;
+  text-align: center;
+}
+
+.count {
+  position: absolute;
+}
+
+.key-anim1 {
+  -webkit-animation: Drawpath 1s linear forwards;
+  animation: Drawpath 1s linear forwards;
+  stroke-dasharray: 0, 600;
+  marker-end: url(#arrow);
+}
+@-webkit-keyframes Drawpath {
+  from {
+    stroke-dasharray: 0, 600;
+  }
+  to {
+    stroke-dasharray: 600, 600;
+  }
+}
+@keyframes Drawpath {
+  from {
+    stroke-dasharray: 0, 600;
+  }
+  to {
+    stroke-dasharray: 600, 600;
+  }
+}
+
+/* To change the color scheme of active tabs */
+.ui-tabs .ui-tabs-active {
+    background-color: green;
+}

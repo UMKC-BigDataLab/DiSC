@@ -1,0 +1,4 @@
+LOG_FILE=/users/arung/higgs.r120.k1.txt                                         
+TRUE_COUNTS_FILE=/users/arung/HiggsTrueCounts.txt                               
+FAMILY=jet_4_eta,jet_2_b-tag,jet_2_phi                                          
+NODE_NUM=2 
