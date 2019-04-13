@@ -52,6 +52,12 @@ public class StreamingConsumer implements Runnable {
 								String result = ErrorCalculator.calculateError(trueCounts, estimatedCounts, PropertyReader.getInstance().getProperty(DiSCConstants.FAMILY), startTime);
 								if (result != null) {
 									logger.debug("StreamingConsumer :: run :: estimated count result :: " + result);
+									try (BufferedWriter bw = new BufferedWriter(new FileWriter(new File(DiSCConstants.EST_C_SUM_FILE), true))) {
+										bw.write(result + "\n");
+									} catch(Exception e) {
+										logger.error("StreamingConsumer :: run ::  Exception encountered while writing the estimated counts :: " + e);
+										e.printStackTrace();
+									}
 									session.getBasicRemote().sendText("EstC::"+result);
 								} else {
 									logger.error("StreamingConsumer :: run ::  Result was null");

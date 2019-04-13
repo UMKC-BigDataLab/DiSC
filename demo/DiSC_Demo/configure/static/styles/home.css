@@ -39,5 +39,18 @@
 
 /* To change the color scheme of active tabs */
 .ui-tabs .ui-tabs-active {
-    background-color: green;
+  background-color: #38ACEC;
+}
+
+.center {
+display: block;
+margin-left: auto;
+margin-right: auto;
+}
+.c1 {
+width: 82%;
+}
+
+.c2 {
+width: 100%;
 }

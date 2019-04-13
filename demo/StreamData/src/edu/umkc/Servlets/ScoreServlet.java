@@ -44,6 +44,9 @@ public class ScoreServlet extends HttpServlet {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		PrintWriter out = response.getWriter();
 		String family = PropertyReader.getInstance().getProperty(DiSCConstants.FAMILY);
+		String scoringFunction = PropertyReader.getInstance().getProperty(DiSCConstants.SCORING_FUNCTION);
+		String ess = PropertyReader.getInstance().getProperty(DiSCConstants.ESS);
+
 		// Find out the node responsible for the Family and get the score from the node.
 		if (PropertyReader.getInstance().getProperty(DiSCConstants.NODE_NUM).equals("1")) {
 			try (BufferedReader br = new BufferedReader(new FileReader(new File(DiSCConstants.CONFIG_FILE)))) {
@@ -92,7 +95,7 @@ public class ScoreServlet extends HttpServlet {
 			}
 		}
 		
-		String json = ScoreCalculator.getActAndEstScores(family);
+		String json = ScoreCalculator.getActAndEstScores(family, scoringFunction, ess);
 		logger.debug("ScoreServlet :: doWork :: Return JSON :: " + json);
 		out.println(json);
 	}

@@ -1,22 +1,23 @@
 $(document).ready(function() {
 
   //IP List
-  var IP1 = "128.110.154.247";
-  var IP2 = "128.110.154.248";
-  var IP3 = "128.110.154.250";
-  var IP4 = "128.110.154.242";
-  var IP5 = "128.110.155.11";
-  var IP6 = "128.110.155.14";
-  var IP7 = "128.110.155.25";
-  var IP8 = "128.110.155.29";
-  var IP9 = "128.110.155.9";
-  var IP10 = "128.110.155.5";
-  var IP11 = "128.110.154.244";
-  var IP12 = "128.110.155.13";
-  var IP13 = "128.110.155.4";
-  var IP14 = "128.110.154.246";
-  var IP15 = "128.110.154.253";
-  var IP16 = "128.110.155.8";
+  var IP1 = "128.110.152.64";
+  var IP2 = "128.110.152.85";
+  var IP3 = "128.110.152.82";
+  var IP4 = "128.110.152.66";
+  var IP5 = "128.110.152.83";
+  var IP6 = "128.110.152.88";
+  var IP7 = "128.110.152.56";
+  var IP8 = "128.110.152.71";
+  var IP9 = "128.110.152.49";
+  var IP10 = "128.110.152.74";
+  var IP11 = "128.110.152.48";
+  var IP12 = "128.110.152.61";
+  var IP13 = "128.110.152.53";
+  var IP14 = "128.110.152.84";
+  var IP15 = "128.110.152.46";
+  var IP16 = "128.110.152.62";
+
 
   //To display tabs
   var nodeResp=document.getElementById('NodeResp').value;
@@ -38,7 +39,7 @@ $(document).ready(function() {
       fontSize:24,
       fontFamily:"Helvetica"
     },
-    width:1360,
+    width:1760,
     axisX:{
       interval: 1
     },
@@ -1062,4 +1063,27 @@ function initDataPoints(size) {
   }
   console.log(dps)
   return dps;
+}
+
+function execUpdate(event) {
+  event.preventDefault();
+  alert("New dataset has been uploaded.");
+  $.ajax({
+    type: "POST",
+    url: "http://128.110.152.64:8080/StreamData/TriggerUpload",
+  }).done(function() {
+    alert("Complete uploading the new dataset.");
+  });
+
+}
+
+
+function execClick(event) {
+  event.preventDefault();
+  alert("Please wait for the experiement to complete");
+}
+
+function execLiveClick(event) {
+  event.preventDefault();
+  alert("Live gossip is in progress.");
 }

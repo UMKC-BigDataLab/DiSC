@@ -3,6 +3,7 @@ package edu.umkc.Compute;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -16,46 +17,21 @@ import edu.umkc.Util.PropertyReader;
 
 public class ScoreCalculator {
 	private static final Logger logger = LogManager.getLogger(ScoreCalculator.class.getName());
-		
-	private static Double getScore(Double[][] inp) {
-		//Assuming prior as a matrix with the values as 1.
-		Double[][] prior = new Double[inp.length][inp[0].length];
-		
-		for(int i=0; i<inp.length; i++) {
-			for(int j=0; j<inp[0].length; j++) {
-				prior[i][j] = 1.0;
-			}
-		}
-		
-		Double score = 0d;
-		
-		for(int i=0; i<inp[0].length; i++) {
-			Double sumM = inp[0][i] + inp[1][i];
-			Double sumAplha = prior[0][i] + prior[1][i];
-			score += Gamma.logGamma(sumAplha) - Gamma.logGamma(sumAplha + sumM);
-			//score += Math.log10(sumAplha/(sumAplha + sumM));
-		}
-		
-		for(int i=0; i<inp.length; i++) {
-			for(int j=0; j<inp[0].length; j++) {
-				score += Gamma.logGamma(prior[i][j] + inp[i][j]) - Gamma.logGamma(prior[i][j]);
-				//score += Math.log10((prior[i][j] + inp[i][j])/prior[i][j]);
-			}
-		}
-		
-		return score;
-	}
-	
-	public static String getActAndEstScores(String family) {
-		Double estScore = null;
-		Double actScore = null;
+
+	public static String getActAndEstScores(String family, String scoringFunction, String ess) {
+		String estScore = null;
+		String actScore = null;
 		logger.debug("ScoreCalculator :: getActAndEstScores :: Start");
 		try (BufferedReader br = new BufferedReader(new FileReader(new File(DiSCConstants.EST_C_FILE)))) {
 			Map<String, LinkedList<LinkedList<Double>>> estimatedCounts = CommonUtil.convertJsonToMap(br.readLine());
 			for (String key : estimatedCounts.keySet()) {
 				if (key.equals(family)) {
 					logger.debug("ScoreCalculator :: getActAndEstScores :: Estimated Count Matrix :: " + estimatedCounts.get(key));
-					estScore = getScore(CommonUtil.convertToMatrix(estimatedCounts.get(key)));
+					if (DiSCConstants.BDeu.equals(scoringFunction)) {
+						estScore = BDeuScoreCalculator.getInstance().getScore(CommonUtil.convertToMatrix(estimatedCounts.get(key)), Double.parseDouble(ess));
+					} else if (DiSCConstants.K2.equals(scoringFunction)) {
+						estScore = K2ScoreCalculator.getInstance().getScore(CommonUtil.convertToMatrix(estimatedCounts.get(key)));
+					}
 					logger.debug("ScoreCalculator :: getActAndEstScores :: Estimaged Score Calculated :: " + estScore);
 					break;
 				}
@@ -70,7 +46,11 @@ public class ScoreCalculator {
 			for (String key : trueCounts.keySet()) {
 				if (key.equals(family)) {
 					logger.debug("ScoreCalculator :: getActAndEstScores :: Actual Count Matrix :: " + trueCounts.get(key));
-					actScore = getScore(CommonUtil.convertToMatrix(trueCounts.get(key)));
+					if (DiSCConstants.BDeu.equals(scoringFunction)) {
+						actScore = BDeuScoreCalculator.getInstance().getScore(CommonUtil.convertToMatrix(trueCounts.get(key)), Double.parseDouble(ess));
+					} else if (DiSCConstants.K2.equals(scoringFunction)) {
+						actScore = K2ScoreCalculator.getInstance().getScore(CommonUtil.convertToMatrix(trueCounts.get(key)));
+					}
 					logger.debug("ScoreCalculator :: getActAndEstScores :: Actual Score Calculated :: " + actScore);
 					break;
 				}
